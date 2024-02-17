@@ -29,11 +29,6 @@ jobs:
       run: |
         msbuild millennium.sln /p:Configuration=Release /p:Platform=x86
 
-  checksum:
-    needs: build
-    runs-on: windows-latest
-
-    steps:
     - name: Calculate Artifact Hash
       id: calculate-hash
       working-directory: vendor\millennium\dist\millennium.Release-x86-Windows_NT
