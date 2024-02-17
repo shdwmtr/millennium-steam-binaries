@@ -1,0 +1,3 @@
+[submodule "vendor/millennium"]
+	path = vendor/millennium
+	url = https://github.com/ShadowMonster99/millennium-steam-patcher.git
