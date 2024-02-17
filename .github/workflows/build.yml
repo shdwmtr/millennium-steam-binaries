@@ -47,3 +47,59 @@ jobs:
         echo "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin" >> $GITHUB_PATH 
       shell: cmd
 
+    - name: Create Release Draft
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: 1.0.0 # You can specify your version here
+        release_name: Millennium.Patcher v1.0.0 # You can specify your release name here
+        draft: true
+        prerelease: false # Change to true if it's a pre-release
+        body: |
+          xxx
+
+    - name: Upload User32.dll
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: vendor\millennium\dist\millennium.Release-x86-Windows_NT\User32.dll
+        asset_name: User32.dll
+        asset_content_type: application/octet-stream
+
+
+    - name: Upload User32.sha256
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: vendor\millennium\dist\millennium.Release-x86-Windows_NT\User32.sha256
+        asset_name: User32.sha256
+        asset_content_type: text/plain
+
+
+    - name: Upload millennium.updater.dll
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: vendor\millennium\dist\millennium.Release-x86-Windows_NT\millennium.updater.dll
+        asset_name: millennium.updater.dll
+        asset_content_type: application/octet-stream
+
+
+    - name: Upload millennium.updater.sha256
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: vendor\millennium\dist\millennium.Release-x86-Windows_NT\millennium.updater.sha256
+        asset_name: millennium.updater.sha256
+        asset_content_type: text/plain
+
