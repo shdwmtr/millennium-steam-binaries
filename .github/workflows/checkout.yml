@@ -1,0 +1,19 @@
+name: checksum
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Calculate Artifact Hash
+        id: calculate-hash
+        run: |
+            echo "::set-output name=hash::$(sha256sum millennium.installer/build/output/Millennium.Installer-Windows.exe | cut -d ' ' -f 1)"
+          
+      - name: Create Checksum File
+        run: |
+            echo "${{ steps.calculate-hash.outputs.hash }}" > checksum.sha256
+        working-directory: millennium.installer/build/output/
