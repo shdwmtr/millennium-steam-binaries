@@ -21,9 +21,11 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.0
 
     - name: Restore NuGet packages
+      working-directory: ./vendor/millennium
       run: nuget restore
 
     - name: Build project
+      working-directory: ./vendor/millennium
       run: |
         msbuild vendor/millennium/millennium.sln /p:Configuration=Release /p:Platform=x86
 
