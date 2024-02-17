@@ -30,6 +30,7 @@ jobs:
         msbuild millennium.sln /p:Configuration=Release /p:Platform=x86
 
   checksum:
+    needs: build
     runs-on: windows-latest
 
     steps:
