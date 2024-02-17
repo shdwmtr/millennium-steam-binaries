@@ -29,10 +29,22 @@ jobs:
       run: |
         msbuild millennium.sln /p:Configuration=Release /p:Platform=x86
 
+  checksum:
+    runs-on: windows-latest
+
+    steps:
+    - name: Calculate Artifact Hash
+      id: calculate-hash
+      run: |
+        echo "::set-output name=hash::$(sha256sum millennium.installer/build/output/Millennium.Installer-Windows.exe | cut -d ' ' -f 1)"
+              
+    - name: Create Checksum File
+      run: |
+        echo "${{ steps.calculate-hash.outputs.hash }}" > checksum.sha256
+      working-directory: millennium.installer/build/output/
+
     - name: Set MSBuild path
       run: |
         echo "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\MSBuild\Current\Bin" >> $GITHUB_PATH 
       shell: cmd
 
-    - name: Checkout millennium
-      uses: ./checkout.yml
