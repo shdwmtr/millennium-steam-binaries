@@ -36,7 +36,7 @@ jobs:
     steps:
     - name: Calculate Artifact Hash
       id: calculate-hash
-      working-directory: dist\millennium.Release-x86-Windows_NT
+      working-directory: ./vendor/millennium/dist/millennium.Release-x86-Windows_NT
       run: |
         echo "::set-output name=mainHash::$(sha256sum User32.dll | cut -d ' ' -f 1)"
         echo "::set-output name=updaterHash::$(sha256sum millennium.updater.dll | cut -d ' ' -f 1)"
@@ -45,7 +45,7 @@ jobs:
       run: |
         echo "${{ steps.calculate-hash.outputs.mainHash }}" > User32.sha256
         echo "${{ steps.calculate-hash.outputs.updaterHash }}" > millennium.updater.sha256
-      working-directory: dist\millennium.Release-x86-Windows_NT
+      working-directory: ./vendor/millennium/dist/millennium.Release-x86-Windows_NT
 
     - name: Set MSBuild path
       run: |
